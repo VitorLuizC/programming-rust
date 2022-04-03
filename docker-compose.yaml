@@ -1,17 +1,14 @@
 version: "3.8"
 
-x-base: &base
-  build: .
-
 services:
   cargo:
-    <<: *base
+    build: .
     entrypoint: 'cargo'
 
   rustc:
-    <<: *base
+    build: .
     entrypoint: 'rustc'
 
   rustdoc:
-    <<: *base
+    build: .
     entrypoint: 'rustdoc'
