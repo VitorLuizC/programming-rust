@@ -1,5 +1,7 @@
 FROM rust:1.59.0-alpine3.15
 
+RUN rustup component add rustfmt
+
 ARG USER_ID
 
 ARG USER_NAME="dev"
