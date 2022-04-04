@@ -70,3 +70,32 @@ Doing some parallels with the JavaScript ecosystem we have:
 | `cargo`   | [`npm`](https://docs.npmjs.com/cli/v8), [`yarn`](https://yarnpkg.com/), or [`pnpm`](https://pnpm.io/)                           |
 | `rustc`   | [`tsc`](https://www.typescriptlang.org/docs/handbook/compiler-options.html), or [`babel`](https://babeljs.io/docs/en/babel-cli) |
 | `rustdoc` | [`tsdoc`](https://tsdoc.org/), or [`jsdoc`](https://jsdoc.app/)                                                                 |
+
+1. Generate new project
+
+  ```sh
+  cargo new hello
+  ```
+
+2. Open the project
+
+  ```sh
+  cd hello/
+  ```
+
+3. Build the project
+
+  ```sh
+  cargo build
+  ```
+
+4. Run generated executables
+  
+  ```sh
+  target/debug/hello
+  ```
+
+5. Cleanup generated executables
+  ```sh
+  cargo clean
+  ```
