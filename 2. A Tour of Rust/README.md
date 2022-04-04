@@ -4,12 +4,16 @@
 
 Since I'm not particularly eager to install stuff globally on my computer, I've written a [`Dockerfile`](#dockerfile) and [`docker-compose.yaml`](#docker-compose) files to execute Rust's binaries from Docker.
 
-So, instead of running directly, I'll run them using `docker-compose`.
+So, instead of running directly, I'll run them using `docker-compose`. But using aliases.
 
 ```bash
-docker-compose run cargo --version
-docker-compose run rustc --version
-docker-compose run rustdoc --version
+# These vars are required to preserve current user's permissions on Docker.
+export USER_ID=$(id -u)
+export GROUP_ID=$(id -g)
+
+alias cargo="docker-compose run --rm cargo $@"
+alias rustc="docker-compose run --rm rustc $@"
+alias rustdoc="docker-compose run --rm rustdoc $@"
 ```
 
 ### About the [`Dockerfile`](../Dockerfile) {#dockerfile}
@@ -18,8 +22,8 @@ The only part that matters is the image name, `rust:1.59.0-alpine3.15`. So it us
 
 ```dockerfile
 FROM rust:1.59.0-alpine3.15
-WORKDIR /usr/src/app
-COPY . ./
+
+# ...
 ```
 
 ### About the [`docker-compose.yaml`](../docker-compose.yaml) {#docker-compose}
@@ -27,19 +31,19 @@ COPY . ./
 It defines Rust's binaries as services that run on `Dockerfile`'s build.
 
 ```yaml
-version: '3.8'
+# ...
 
 services:
   cargo:
-    build: .
+    <<: *base
     entrypoint: 'cargo'
 
   rustc:
-    build: .
+    <<: *base
     entrypoint: 'rustc'
 
   rustdoc:
-    build: .
+    <<: *base
     entrypoint: 'rustdoc'
 ```
 
